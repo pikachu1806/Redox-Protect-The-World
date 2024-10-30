@@ -2,6 +2,9 @@ extends Node
 
 var levelSelected = 0
 var score = 0
+var health = 3
+var isCorrect = false
+var lossGame = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
