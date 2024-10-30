@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3 uid="uid://cxfsj8x1di53l"]
+
+[ext_resource type="Script" path="res://level_1.gd" id="1_a3k8v"]
+[ext_resource type="PackedScene" uid="uid://c7eb7hngf2bmm" path="res://background_1.tscn" id="2_dktp2"]
+[ext_resource type="PackedScene" uid="uid://mouvuk22mn85" path="res://hud.tscn" id="3_tpe4e"]
+[ext_resource type="PackedScene" uid="uid://coom2gtmojaa0" path="res://answer_spawn.tscn" id="4_4k4xg"]
+[ext_resource type="PackedScene" uid="uid://cge8mgijxca8v" path="res://kill_plane.tscn" id="5_yx64u"]
+[ext_resource type="PackedScene" uid="uid://2tvohq7u2ygs" path="res://player.tscn" id="6_y5tno"]
+[ext_resource type="Texture2D" uid="uid://h18vapfqo11b" path="res://backgrounds/pause-button.png" id="7_hweqy"]
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_a3k8v")
+
+[node name="Background1" parent="." instance=ExtResource("2_dktp2")]
+
+[node name="Hud" parent="." instance=ExtResource("3_tpe4e")]
+
+[node name="AnswerSpawn" parent="." instance=ExtResource("4_4k4xg")]
+texture_filter = 1
+
+[node name="KillPlane" parent="." instance=ExtResource("5_yx64u")]
+
+[node name="Player" parent="." instance=ExtResource("6_y5tno")]
+position = Vector2(546, 601)
+
+[node name="PauseButton" type="Button" parent="."]
+process_mode = 1
+offset_left = 27.0
+offset_top = 118.0
+offset_right = 85.0
+offset_bottom = 183.0
+icon = ExtResource("7_hweqy")
+
+[node name="ResumeButton" type="Button" parent="."]
+process_mode = 3
+visible = false
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 488.0
+offset_top = 364.0
+offset_right = 653.0
+offset_bottom = 440.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Resume Game"
+
+[node name="FeedbackMessage" type="RichTextLabel" parent="."]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 982.0
+offset_top = 572.0
+offset_right = 1113.0
+offset_bottom = 622.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Wrong Answer"
+
+[node name="AnswerDisplaySprite" type="Sprite2D" parent="."]
+position = Vector2(600, 300)
+
+[node name="AnswerDisplayTimer" type="Timer" parent="."]
+
+[connection signal="pressed" from="PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="timeout" from="AnswerDisplayTimer" to="." method="_on_answer_display_timer_timeout"]
