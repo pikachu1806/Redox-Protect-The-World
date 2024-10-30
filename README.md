@@ -2,7 +2,7 @@
 ## Description:
 The purpose of the "Redox Protect the World" project is to create a gamified learning environment it helps to improve interest about chemistry(redox reactions) amongh students'. Our goal is to get students more deeply involved with the content by rethinking conventional teaching strategies.
 
-## SetUp instructions: 
+## Setup instructions and steps to run the game: 
 1. you need to download the project file.
 2. Then extract the files.
 3. Open the redox file in the Godot Engine(preferablly in the version 3.0).
