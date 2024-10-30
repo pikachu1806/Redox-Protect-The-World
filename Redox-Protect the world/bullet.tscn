@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7bbw1f7w8km1"]
+
+[ext_resource type="Script" path="res://bullet.gd" id="1_668k3"]
+[ext_resource type="Texture2D" uid="uid://b10c6visjx7hx" path="res://player/laserRed01.png" id="1_n8d0v"]
+[ext_resource type="AudioStream" uid="uid://cmq0hhf0npeay" path="res://audio/correct-answer.mp3" id="3_hy2l5"]
+[ext_resource type="AudioStream" uid="uid://b54klfbi16b81" path="res://audio/incorrect-answer.mp3" id="4_i5bxw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n1gf0"]
+size = Vector2(7.5, 36.3721)
+
+[node name="Bullet" type="Area2D" groups=["bullet"]]
+scale = Vector2(0.9, 0.9)
+script = ExtResource("1_668k3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -5.5)
+scale = Vector2(1, 0.796296)
+texture = ExtResource("1_n8d0v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.19209e-07, -12)
+rotation = 3.11192
+scale = Vector2(1, 0.796296)
+shape = SubResource("RectangleShape2D_n1gf0")
+
+[node name="FeedbackMessage" type="RichTextLabel" parent="."]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 1095.56
+offset_top = 603.333
+offset_right = 1226.56
+offset_bottom = 653.333
+grow_horizontal = 2
+grow_vertical = 0
+text = "Wrong Answer"
+
+[node name="correctanswer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_hy2l5")
+volume_db = 2.4
+pitch_scale = 1.11
+
+[node name="incorrectanswer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_i5bxw")
+
+[node name="gamelose" type="AudioStreamPlayer2D" parent="."]
+volume_db = 7.189
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
