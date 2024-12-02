@@ -1,5 +1,7 @@
 # Game Link: https://madhushree-kurri.itch.io/redoxgame 
 
+## Professsor Login link: https://redoxfrontend.onrender.com/
+
 ## Student Registration link: https://redoxfrontend.onrender.com/student/ 
 
 # Redox-Protect-The-World
