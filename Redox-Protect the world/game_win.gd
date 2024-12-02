@@ -11,4 +11,6 @@ func _process(delta):
 
 
 func _on_button_pressed():
+	GlobalVars.score = 0
+	GlobalVars.health = 3
 	get_tree().change_scene_to_file("res://menu.tscn")

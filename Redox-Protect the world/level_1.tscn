@@ -65,6 +65,21 @@ position = Vector2(600, 300)
 
 [node name="AnswerDisplayTimer" type="Timer" parent="."]
 
+[node name="ExitBtn" type="Button" parent="."]
+process_mode = 3
+visible = false
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 485.0
+offset_top = 462.0
+offset_right = 650.0
+offset_bottom = 538.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Exit"
+
 [connection signal="pressed" from="PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="timeout" from="AnswerDisplayTimer" to="." method="_on_answer_display_timer_timeout"]
+[connection signal="pressed" from="ExitBtn" to="." method="_on_exit_btn_pressed"]

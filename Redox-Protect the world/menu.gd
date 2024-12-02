@@ -1,8 +1,8 @@
 extends CanvasLayer
 
-var selected_option = -1
+var selected_option = 0
 
-const ACCESS_CODE_URL = "https://redoxfrontend.onrender.com/professor/check-access-code"
+var ACCESS_CODE_URL = str(GlobalVars.url) + str(GlobalVars.check_access_code_url)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

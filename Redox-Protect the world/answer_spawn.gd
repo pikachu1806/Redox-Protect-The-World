@@ -20,9 +20,10 @@ func _ready():
 # Function to fetch data from an API
 func fetch_data_from_api():
 	if int(GlobalVars.levelSelected) == 1:
-		url = "https://redoxfrontend.onrender.com/professor/loadLevel1Questions"  # API endpoint
+		url = str(GlobalVars.url) + str(GlobalVars.loadQuestions) + "?level=1"
 	else:
-		url = "https://redoxfrontend.onrender.com/professor/loadLevel2Questions"
+		url = str(GlobalVars.url) + str(GlobalVars.loadQuestions) + "?level=2"
+	print("Url - ", url)
 	http_request.request(url)
 
 # Callback for when the request is completed
@@ -67,8 +68,8 @@ func updateLvl1QuestionsAnswers():
 	get_tree().call_group("incorrect", "queue_free")
 	#set question and compund for question
 	$QuestionLabel.text =  (questionSet["question"])
-	$CompoundLabel.text = "[center][color=green]" + str(count) + ". " + questionSet[str(count)]["compound"] + " [/color][/center]"
-	
+	$CompoundLabel.bbcode_text = "[center][color=black]" + str(count) + ". " + questionSet[str(count)]["compound"] + " [/color][/center]"
+	$CompoundLabel.show()
 	# Get the viewport's size to calculate spawn positions
 	var viewport = get_viewport().get_visible_rect()
 	var width = viewport.size.x
@@ -93,9 +94,9 @@ func updateLvl1QuestionsAnswers():
 	
 	#Add answers to label
 	correctAnswerLabel.text = (questionSet[str(count)]["correct"])
-	incorrectAnswerLabel1.text = (questionSet[str(count)]["incorrect1"])
-	incorrectAnswerLabel2.text = (questionSet[str(count)]["incorrect2"])
-	incorrectAnswerLabel3.text = (questionSet[str(count)]["incorrect3"])
+	incorrectAnswerLabel1.bbcode_text = (questionSet[str(count)]["incorrect1"])
+	incorrectAnswerLabel2.bbcode_text = (questionSet[str(count)]["incorrect2"])
+	incorrectAnswerLabel3.bbcode_text = (questionSet[str(count)]["incorrect3"])
 	
 	var mob_spawn_location = get_node("MobPath/MobSpawnLocation")
 	
@@ -128,8 +129,8 @@ func updateLvl2QuestionsAnswers():
 		$QuestionLabel.text = "Shoot the Reduced"
 	else:
 		$QuestionLabel.text = "Shoot the Oxidized"
-	$CompoundLabel.text = "[center][color=green]"+str(count) + ". " + questionSet[str(count)]["question"] + " [/color][/center]"
-	
+	$CompoundLabel.bbcode_text = "[center][color=black] Q"+str(count) + "). " + questionSet[str(count)]["question"] + " [/color][/center]"
+	$CompoundLabel.show()
 	# Get the viewport's size to calculate spawn positions
 	var viewport = get_viewport().get_visible_rect()
 	var width = viewport.size.x

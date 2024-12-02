@@ -23,7 +23,7 @@ func _ready():
 	player_sprite = player_scene.get_node("AnswerDisplaySprite")
 	player_timer = player_scene.get_node("AnswerDisplayTimer")
 	player_sprite.visible = false  # Hide the sprite initially
-	player_timer.wait_time = 2  # Set the timer to 3 seconds
+	player_timer.wait_time = 1  # Set the timer to 1 seconds
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -65,5 +65,5 @@ func _on_body_entered(body):
 		
 	# Called when the timer times out (after 3 seconds)
 func _on_AnswerDisplayTimer_timeout():
-	# Hide the sprite after the 3-second delay
+	# Hide the sprite after the 1-second delay
 	player_sprite.visible = false

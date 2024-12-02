@@ -18,6 +18,7 @@ func _on_pause_button_pressed():
 	get_tree().paused = true
 	$PauseButton.hide()
 	$ResumeButton.show()
+	$ExitBtn.show()
 	print("pause btn pressed")
 
 func _on_resume_button_pressed():
@@ -26,8 +27,15 @@ func _on_resume_button_pressed():
 	get_tree().paused = false
 	$ResumeButton.hide()
 	$PauseButton.show()
+	$ExitBtn.hide()
 
 
 func _on_answer_display_timer_timeout():
 	$AnswerDisplaySprite.visible = false
 	
+
+func _on_exit_btn_pressed() -> void:
+	print("exit btn pressed")
+	GlobalVars.score = 0
+	GlobalVars.health = 3
+	get_tree().change_scene_to_file("res://menu.tscn")

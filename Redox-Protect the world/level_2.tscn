@@ -42,19 +42,12 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f55dm"]
 shader = SubResource("Shader_201hp")
 
-[node name="Level2" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Level2" type="Node2D"]
 script = ExtResource("1_8ise5")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_idfbq")
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -65,16 +58,14 @@ texture = ExtResource("2_ckdcs")
 [node name="TextureRect2" type="TextureRect" parent="."]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_f55dm")
-layout_mode = 0
 offset_left = -926.0
 offset_top = -810.0
 offset_right = 2074.0
 offset_bottom = 1557.0
 texture = ExtResource("3_i5axn")
 
-[node name="ResumeButton" type="Button" parent="."]
+[node name="ResumeBtn" type="Button" parent="."]
 visible = false
-layout_mode = 0
 offset_left = 380.0
 offset_top = 424.0
 offset_right = 728.0
@@ -83,7 +74,6 @@ text = "Resume"
 
 [node name="HelpButton" type="Button" parent="."]
 visible = false
-layout_mode = 0
 offset_left = 362.0
 offset_top = 292.0
 offset_right = 741.0
@@ -92,7 +82,6 @@ text = "Instructions"
 
 [node name="HelpOkButton" type="Button" parent="."]
 visible = false
-layout_mode = 0
 offset_left = 268.0
 offset_top = 562.0
 offset_right = 834.0
@@ -101,7 +90,6 @@ text = "Close"
 
 [node name="HelpMessage" type="RichTextLabel" parent="."]
 visible = false
-layout_mode = 0
 offset_left = 212.0
 offset_top = 52.0
 offset_right = 892.0
@@ -135,7 +123,6 @@ position = Vector2(600, 300)
 
 [node name="FeedbackMessage" type="RichTextLabel" parent="."]
 visible = false
-layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -149,7 +136,7 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Wrong Answer"
 
-[node name="PauseButton" type="Button" parent="."]
+[node name="PauseBtn" type="Button" parent="."]
 process_mode = 1
 offset_left = 27.0
 offset_top = 118.0
@@ -157,6 +144,17 @@ offset_right = 85.0
 offset_bottom = 183.0
 icon = ExtResource("8_lqu3v")
 
-[connection signal="pressed" from="ResumeButton" to="." method="_on_resume_button_pressed"]
+[node name="exit1" type="Button" parent="."]
+visible = false
+offset_left = 425.0
+offset_top = 548.0
+offset_right = 692.0
+offset_bottom = 618.0
+text = "EXIT"
+
+[connection signal="pressed" from="ResumeBtn" to="." method="_on_resume_btn_pressed"]
 [connection signal="pressed" from="HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="pressed" from="HelpOkButton" to="." method="_on_help_ok_button_pressed"]
+[connection signal="timeout" from="AnswerDisplayTimer" to="." method="_on_answer_display_timer_timeout"]
+[connection signal="pressed" from="PauseBtn" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="exit1" to="." method="_on_exit_1_pressed"]
