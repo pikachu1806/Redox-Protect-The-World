@@ -93,58 +93,29 @@ header {
 .submit-btn:hover {
     background-color: #005ae0;
 }
-.main-nav{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    text-align: center;
-    margin: 20px;
-    gap: 20px;
-}
-.pushable {
-    background: hsl(340deg 100% 32%);
-    border-radius: 12px;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    outline-offset: 4px;
-  }
-  .front {
-    display: block;
-    padding: 10px 22px;
-    border-radius: 12px;
-    font-size: 1rem;
-    background: hsl(345deg 100% 47%);
-    color: white;
-    transform: translateY(-6px);
-  }
-
-  .pushable:active .front {
-    transform: translateY(-2px);
-  }
 
 #editButton{
     background-color: rgb(44, 136, 33);
 }
 
-/* Options Container */
 .options-container {
     display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 20px;
     z-index: 99;
 }
 
-.option-input { 
-    width: 80%;
+#option1, #option2 { 
+    margin-right: 3%;
+    width: 40%;
     padding: 10px;
-    margin-left: 35%;
-    margin-right: 30px;
+    margin-bottom: 3%;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 10px;
     z-index: 99;
 }
-/* Add this style for the level select input */
 #levelSelectTable {
     margin-left: 10px;
     padding: 8px;
@@ -185,7 +156,7 @@ header {
 
 /* Add this style for the level select input */
 #levelSelectForm, #correctOption {
-    margin-left: 50px;
+    margin-left: 10px;
     padding: 8px;
     font-size: 14px;
     border: 1px solid #ccc;
@@ -218,7 +189,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 40px;
+    margin-top: 100px;
     box-shadow: 0px 9px 30px rgba(37, 243, 14, 0.3);
     padding: 30px;
     border: 2px solid #272727;
@@ -228,12 +199,13 @@ header {
 .table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed;
+    table-layout: fixed; 
+
 }
 
 .table th, .table td {
     border: 1px solid #ddd;
-    padding: 12px;
+    padding: 8px;
     
 }
 .index{
@@ -250,18 +222,9 @@ td{
     color: white;
 }
 
-.table td:nth-child(1) { 
-    width: 1000px; 
-    word-wrap: break-word; 
+.table th:nth-child(1) {
+    width: 100px;
 }
-
-.table td:nth-child(2),
-.table td:nth-child(3),
-.table td:nth-child(4),
-.table td:nth-child(5) { 
-    width: 11.25%; 
-}
-
 
 .table tr:nth-child(even) {
     background-color: #d3d3d3; 
@@ -335,3 +298,35 @@ td{
     left: 100px;
     z-index: 2;
 }
+
+.main-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    margin: 20px;
+    gap: 20px;
+}
+.pushable {
+    background: hsl(340deg 100% 32%);
+    border-radius: 12px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+  }
+  .front {
+    display: block;
+    padding: 10px 22px;
+    border-radius: 12px;
+    font-size: 1rem;
+    background: hsl(345deg 100% 47%);
+    color: white;
+    transform: translateY(-6px);
+  }
+
+  .pushable:active .front {
+    transform: translateY(-2px);
+  }
+
+  

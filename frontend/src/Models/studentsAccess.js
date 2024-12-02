@@ -29,6 +29,10 @@ const studentSchema = new mongoose.Schema({
                 type: Number,
                 trim: true
             },
+            level2Score: {
+                type: Number,
+                trim: true
+            },
             attemptedDate: {
                 type: Date, 
                 trim: true

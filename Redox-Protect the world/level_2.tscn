@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://bp0wyspt03gts"]
+[gd_scene load_steps=13 format=3 uid="uid://bp0wyspt03gts"]
 
 [ext_resource type="Script" path="res://level_2.gd" id="1_8ise5"]
 [ext_resource type="Texture2D" uid="uid://dt66rt3upufyf" path="res://backgrounds/background2/background 2.jpg" id="2_ckdcs"]
 [ext_resource type="Texture2D" uid="uid://2dk8h84prinq" path="res://backgrounds/background2/fog_background.png" id="3_i5axn"]
 [ext_resource type="PackedScene" uid="uid://2tvohq7u2ygs" path="res://player.tscn" id="4_kc4jn"]
 [ext_resource type="PackedScene" uid="uid://cge8mgijxca8v" path="res://kill_plane.tscn" id="5_qwgbu"]
+[ext_resource type="PackedScene" uid="uid://coom2gtmojaa0" path="res://answer_spawn.tscn" id="6_rdr6r"]
+[ext_resource type="PackedScene" uid="uid://mouvuk22mn85" path="res://hud.tscn" id="7_3xd0d"]
+[ext_resource type="Texture2D" uid="uid://h18vapfqo11b" path="res://backgrounds/pause-button.png" id="8_lqu3v"]
 
 [sub_resource type="Shader" id="Shader_alxhd"]
 code = "shader_type canvas_item;
@@ -69,14 +72,6 @@ offset_right = 2074.0
 offset_bottom = 1557.0
 texture = ExtResource("3_i5axn")
 
-[node name="PauseButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 1050.0
-offset_top = 2.0
-offset_right = 1148.0
-offset_bottom = 103.0
-text = "|| "
-
 [node name="ResumeButton" type="Button" parent="."]
 visible = false
 layout_mode = 0
@@ -129,7 +124,39 @@ position = Vector2(286, 586)
 
 [node name="KillPlane" parent="." instance=ExtResource("5_qwgbu")]
 
-[connection signal="pressed" from="PauseButton" to="." method="_on_pause_button_pressed"]
+[node name="AnswerSpawn" parent="." instance=ExtResource("6_rdr6r")]
+
+[node name="AnswerDisplaySprite" type="Sprite2D" parent="."]
+position = Vector2(600, 300)
+
+[node name="AnswerDisplayTimer" type="Timer" parent="."]
+
+[node name="Hud" parent="." instance=ExtResource("7_3xd0d")]
+
+[node name="FeedbackMessage" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 982.0
+offset_top = 572.0
+offset_right = 1113.0
+offset_bottom = 622.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Wrong Answer"
+
+[node name="PauseButton" type="Button" parent="."]
+process_mode = 1
+offset_left = 27.0
+offset_top = 118.0
+offset_right = 85.0
+offset_bottom = 183.0
+icon = ExtResource("8_lqu3v")
+
 [connection signal="pressed" from="ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="pressed" from="HelpOkButton" to="." method="_on_help_ok_button_pressed"]

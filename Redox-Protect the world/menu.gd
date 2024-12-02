@@ -2,7 +2,7 @@ extends CanvasLayer
 
 var selected_option = -1
 
-const ACCESS_CODE_URL = "http://localhost:4040/professor/check-access-code"
+const ACCESS_CODE_URL = "https://redoxfrontend.onrender.com/professor/check-access-code"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -42,29 +42,35 @@ func check_access_code(access_code: String) -> void:
 
 # Callback function to handle the response for access code checking
 func _on_check_access_code_response(result, response_code, headers, body):
-	var json = JSON.new()  # Create an instance of JSON
+	var json = JSON.new()
+	print("Body: ", body)
 
-	# Parse the response body as a string
 	var error = json.parse(body.get_string_from_utf8())
 	if error != OK:
 		print("Failed to parse response body as JSON.")
 		return
-	
+
 	var response = json.data
+	print("Response -> ", response)
 
 	if response_code == 200:
+		var message = response.get("message", "No message")
+		var student_name = response.get("studentName", "Unknown")
+		var playerId = response.get("playerId", "Unknown")
 		print("Access code verified successfully.")
-		$ResponseLabel.text = "Access code verified successfully."
+		print("Message: ", message)
+		print("Student Name: ", student_name)
+		print("PlayerId: ", playerId)
+		GlobalVars.playerName = student_name
+		GlobalVars.playerId = playerId
+		$ResponseLabel.text = "Access code verified for " + student_name
 		$ResponseLabel.show()
 
-		# Create a timer for 3 seconds and start it
 		var timer = Timer.new()
 		timer.wait_time = 3.0
-		timer.one_shot = true  # The timer will only fire once
+		timer.one_shot = true
 		add_child(timer)
 		timer.start()
-
-		# Connect the timer's timeout signal to a custom function
 		timer.timeout.connect(_on_verification_timeout)
 
 	elif response_code == 403:
@@ -72,14 +78,11 @@ func _on_check_access_code_response(result, response_code, headers, body):
 		$ResponseLabel.text = "Access code already used. Access denied."
 		$ResponseLabel.show()
 
-		# No timer or UI changes, just show the message
-
 	else:
-		print("Failed to verify access code:", response.get("error", "Unknown error"))
-		$ResponseLabel.text = "Failed to verify access code: " + response.get("error", "Unknown error")
+		var error_message = response.get("error", "Unknown error")
+		print("Failed to verify access code: ", error_message)
+		$ResponseLabel.text = "Failed to verify access code: " + error_message
 		$ResponseLabel.show()
-
-		# No timer or UI changes, just show the message
 
 # Function to handle the timeout after 3 seconds (for response_code == 200)
 func _on_verification_timeout():
@@ -108,6 +111,10 @@ func _on_instructions_button_pressed():
 	$StartGameButton.hide()
 	$InstructionsButton.hide()
 	$Selectlevel.hide()
+	$submitButton.hide()
+	$accessCodeInput.hide()
+	$Label.hide()
+	
 
 func _on_stage_options_item_selected(index):
 	selected_option = index

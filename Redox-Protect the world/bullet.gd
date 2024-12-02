@@ -11,14 +11,19 @@ var incorrect_texture = preload("res://backgrounds/incorrect-answer.png")
 # Reference to the Sprite and Timer nodes from player.tscn
 var player_sprite
 var player_timer
+var player_scene
 
 func _ready():
 	# Get the Sprite and Timer nodes from the player.tscn scene
-	var player_scene = get_tree().root.get_node("Level1")  # Ensure this matches the name of the main screen scene
+	if int(GlobalVars.levelSelected) == 1:
+		player_scene = get_tree().root.get_node("Level1")
+	else:
+		player_scene = get_tree().root.get_node("Level2")
+		  # Ensure this matches the name of the main screen scene
 	player_sprite = player_scene.get_node("AnswerDisplaySprite")
 	player_timer = player_scene.get_node("AnswerDisplayTimer")
 	player_sprite.visible = false  # Hide the sprite initially
-	player_timer.wait_time = 3  # Set the timer to 3 seconds
+	player_timer.wait_time = 2  # Set the timer to 3 seconds
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

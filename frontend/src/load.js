@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const fs = require('fs');
 
 mongoose.connect('mongodb://127.0.0.1:27017/Redox', {
     useNewUrlParser: true,
@@ -7,7 +8,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/Redox', {
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error('MongoDB connection error:', err));
 
-const Level1 = require("./Models/level1.js")
+const Level2 = require("./Models/level2.js")
 
 var level1Data = {
 	"1" : {
@@ -223,7 +224,21 @@ async function pushLevel1Data() {
     }
 }
 
-pushLevel1Data()
+ /* pushLevel1Data()
     .then(() => console.log('All data pushed successfully'))
     .catch(err => console.error('Error pushing data:', err))
-    .finally(() => mongoose.connection.close());
+    .finally(() => mongoose.connection.close());  */
+
+
+	const jsonData = JSON.parse(fs.readFileSync('./level2Data.json', 'utf8'));
+
+    // Insert data into the database
+    Level2.insertMany(jsonData)
+      .then(() => {
+        console.log('Data uploaded successfully');
+        mongoose.connection.close();
+      })
+      .catch((error) => {
+        console.error('Error uploading data:', error);
+        mongoose.connection.close();
+    });

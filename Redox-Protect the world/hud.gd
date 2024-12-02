@@ -10,3 +10,4 @@ func _ready():
 func _process(delta):
 	$Score.text = "Score: " + str(GlobalVars.score)
 	$Health.text = "Health: " + str(GlobalVars.health)
+	$playerName.text = "Player: " + str(GlobalVars.playerName)

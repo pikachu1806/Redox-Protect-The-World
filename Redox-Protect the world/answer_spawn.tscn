@@ -1,14 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://coom2gtmojaa0"]
+[gd_scene load_steps=7 format=3 uid="uid://coom2gtmojaa0"]
 
 [ext_resource type="Script" path="res://answer_spawn.gd" id="1_vwc8m"]
 [ext_resource type="PackedScene" uid="uid://ccxoogwvxqww5" path="res://incorrect_answers.tscn" id="2_fxttj"]
 [ext_resource type="FontFile" uid="uid://dgba8l3ee6gl6" path="res://Xolonium-Regular.ttf" id="3_8gdoj"]
+[ext_resource type="Theme" uid="uid://bolkx6k3ui14x" path="res://new_theme.tres" id="3_yrkhk"]
 
 [sub_resource type="Curve2D" id="Curve2D_t1bcr"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 40, -240, 0, 0, 0, 0, 864, -248, 0, 0, 0, 0, 452, -288, 0, 0, 0, 0, 40, -240)
 }
 point_count = 4
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_lgkb7"]
 
 [node name="AnswerSpawn" type="Node2D"]
 script = ExtResource("1_vwc8m")
@@ -24,22 +27,26 @@ position = Vector2(40, -240)
 rotation = -0.00970843
 
 [node name="QuestionLabel" type="Label" parent="."]
-offset_left = 721.0
-offset_top = 3.0
-offset_right = 1150.0
-offset_bottom = 104.0
-horizontal_alignment = 2
+offset_left = 924.0
+offset_top = 20.0
+offset_right = 1224.0
+offset_bottom = 70.0
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="CompoundLabel" type="Label" parent="."]
-offset_left = 864.0
-offset_top = 90.0
-offset_right = 933.0
-offset_bottom = 125.0
+[node name="CompoundLabel" type="RichTextLabel" parent="."]
+offset_left = 171.0
+offset_top = 69.0
+offset_right = 390.0
+offset_bottom = 113.0
 scale = Vector2(3.86709, 2.1662)
-theme_override_font_sizes/font_size = 10
-horizontal_alignment = 2
+theme = ExtResource("3_yrkhk")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_8gdoj")
+theme_override_font_sizes/normal_font_size = 9
+theme_override_styles/background = SubResource("StyleBoxLine_lgkb7")
+bbcode_enabled = true
+fit_content = true
 
 [node name="StartButton" type="Button" parent="."]
 offset_left = 443.0

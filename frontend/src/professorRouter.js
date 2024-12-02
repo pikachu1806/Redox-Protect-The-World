@@ -4,6 +4,7 @@ const router = new express.Router()
 const Jwt_Secret="thisisseceret";
 const Model = require("./Models/userModel.js");
 const level1 = require("./Models/level1.js");
+const Level2 = require("./Models/level2.js")
 const studentAccessModel = require("./Models/studentsAccess.js")
 const emails = require("./emails.js");
 
@@ -49,6 +50,7 @@ router.post("/register", async (req,res) => {
             res.status(500).send({error: "Failed to create account"});
         }
 })
+
 router.post("/request-otp", async (req,res) => {
     try{
         if(req.body){
@@ -196,8 +198,6 @@ router.get('/loadLevel1Questions', async (req, res) => {
     }
 });
 
-
-
 router.post('/addStudents', async (req, res) => {
     try {
         const { name, email, sectionId } = req.body;
@@ -211,7 +211,6 @@ router.post('/addStudents', async (req, res) => {
         res.status(500).json({ error: 'Failed to add student', details: error.message });
     }
 });
-
 
 router.put('/students/:id', async (req, res) => {
     try {
@@ -234,7 +233,6 @@ router.put('/students/:id', async (req, res) => {
     }
 });
 
-
 router.delete('/students/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -252,7 +250,6 @@ router.delete('/students/:id', async (req, res) => {
     }
 });
 
-
 router.get('/students', async (req, res) => {
     try {
         const students = await studentAccessModel.find();
@@ -263,7 +260,7 @@ router.get('/students', async (req, res) => {
     }
 });
 
-// Route to generate a unique access code for all students
+
 router.get('/generate-access-code', async (req, res) => {
     try {
         const students = await studentAccessModel.find();
@@ -290,7 +287,6 @@ router.get('/generate-access-code', async (req, res) => {
 });
 
 
-// Route to check access code and update attemptedDate
 router.post('/check-access-code', async (req, res) => {
     try {
         console.log("Check access Request -> ", req.body)
@@ -309,14 +305,15 @@ router.post('/check-access-code', async (req, res) => {
 
             // Check if attemptedDate is already set
             if (studentData.attemptedDate) {
-                return res.status(403).json({ error: 'Access code has already been used' });
+                console.log("Already Attempted")
+               // return res.status(403).json({ error: 'Access code has already been used' });
             }
 
-            // If attemptedDate is not set, update it and allow access
             studentData.attemptedDate = new Date();
             await student.save();
+            console.log(student)
 
-            res.status(200).json({ message: 'Access code verified and attempted date updated' });
+            res.status(200).send({ message: 'Access code verified and attempted date updated', studentName: student.name, playerId: accessCode });
         }
     } catch (error) {
         res.status(500).json({ error: 'Failed to verify access code', details: error.message });
@@ -324,7 +321,6 @@ router.post('/check-access-code', async (req, res) => {
 });
 
 
-// Route to add or update level1Score
 router.put('/update-level1score', async (req, res) => {
     try {
         const { accessCode, level1Score } = req.body;
@@ -344,6 +340,138 @@ router.put('/update-level1score', async (req, res) => {
         res.status(200).json({ message: 'Level 1 score updated successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Failed to update level 1 score', details: error.message });
+    }
+});
+
+
+router.post("/addLevel2Question", async (req, res) => {
+    try {
+        const { question, oxidized, reduced } = req.body;
+
+        const newQuestion = new Level2({
+            question,
+            oxidized,
+            reduced
+        });
+
+        await newQuestion.save();
+
+        res.status(201).json({ ok: "Added", message: 'Level 2 question added successfully!' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error, failed to add Level 2 question.' });
+    }
+});
+
+
+router.get("/getLevel2Questions", async (req, res) => {
+    try {
+        const getQuestions = await Level2.find();
+
+        if (!getQuestions) {
+            return res.status(404).json({ message: 'Level 2 questions not found.' });
+        }
+
+        res.status(200).json({ ok: "Fetched", questions: getQuestions });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error, failed to fetch Level 2 questions.' });
+    }
+});
+
+
+router.put("/level2Questions/:questionNumber", async (req, res) => {
+    try {
+        const { question, oxidized, reduced } = req.body;
+        const questionNumber = req.params.questionNumber;
+
+        const updatedQuestion = await Level2.findOneAndUpdate(
+            { questionNumber: questionNumber },
+            { question, oxidized, reduced },
+            { new: true }
+        );
+
+        if (!updatedQuestion) {
+            return res.status(404).json({ message: 'Level 2 question not found.' });
+        }
+
+        res.status(200).json({ ok: "Updated", message: 'Level 2 question updated successfully!' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error, failed to update Level 2 question.' });
+    }
+});
+
+
+router.delete("/level2Questions/:questionNumber", async (req, res) => {
+    try {
+        const questionNumber = req.params.questionNumber;
+
+        const deletedQuestion = await Level2.findOneAndDelete({ questionNumber: questionNumber });
+
+        if (!deletedQuestion) {
+            return res.status(404).json({ message: 'Level 2 question not found.' });
+        }
+
+        res.status(200).json({ ok: "Deleted", message: 'Level 2 question deleted successfully!' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error, failed to delete Level 2 question.' });
+    }
+});
+
+
+router.get('/loadLevel2Questions', async (req, res) => {
+    try {
+        const questions = await Level2.find().exec();
+
+        const level2Data = {
+            question: "Assign oxidation numbers to the following substances:",
+        };
+
+        if (Array.isArray(questions) && questions.length > 0) {
+            // Shuffle the questions to randomize the order
+            const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+
+            shuffledQuestions.forEach((question, index) => {
+                level2Data[(index + 1).toString()] = {
+                    question: question.question,
+                    oxidized: question.oxidized,
+                    reduced: question.reduced
+                };
+            });
+        } else {
+            console.error("Level 2 questions data is not valid.");
+            return res.status(400).json({ error: "Invalid Level 2 questions data." });
+        }
+
+        res.status(200).json(level2Data);
+    } catch (error) {
+        console.error("Error fetching Level 2 questions:", error);
+        res.status(500).json({ message: "Error fetching Level 2 questions" });
+    }
+});
+
+
+router.put('/update-level2score', async (req, res) => {
+    try {
+        const { accessCode, level2Score } = req.body;
+
+        const student = await studentAccessModel.findOne({ 'data.accessCode': accessCode });
+        
+        if (!student) {
+            return res.status(404).json({ error: 'Invalid access code' });
+        }
+
+        const dataIndex = student.data.findIndex(d => d.accessCode === accessCode);
+        if (dataIndex !== -1) {
+            student.data[dataIndex].level2Score = level2Score;
+            await student.save();
+        }
+
+        res.status(200).json({ message: 'Level 2 score updated successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to update Level 2 score', details: error.message });
     }
 });
 

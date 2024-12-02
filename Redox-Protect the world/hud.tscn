@@ -1,27 +1,46 @@
-[gd_scene load_steps=3 format=3 uid="uid://mouvuk22mn85"]
+[gd_scene load_steps=6 format=3 uid="uid://mouvuk22mn85"]
 
 [ext_resource type="FontFile" uid="uid://dgba8l3ee6gl6" path="res://Xolonium-Regular.ttf" id="1_4hbag"]
 [ext_resource type="Script" path="res://hud.gd" id="1_d5oey"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ufxfg"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_hd30a"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_stfxf"]
+font_size = 24
 
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_d5oey")
 
 [node name="Score" type="Label" parent="."]
 texture_filter = 1
-offset_left = 19.0
-offset_top = 23.0
-offset_right = 138.0
-offset_bottom = 74.0
+offset_left = 17.0
+offset_top = 41.0
+offset_right = 136.0
+offset_bottom = 92.0
 theme_override_fonts/font = ExtResource("1_4hbag")
 theme_override_font_sizes/font_size = 32
 text = "Score: 	"
+label_settings = SubResource("LabelSettings_ufxfg")
 
 [node name="Health" type="Label" parent="."]
 texture_filter = 1
-offset_left = 21.0
-offset_top = 69.0
-offset_right = 140.0
-offset_bottom = 120.0
+offset_left = 19.0
+offset_top = 82.0
+offset_right = 138.0
+offset_bottom = 133.0
 theme_override_fonts/font = ExtResource("1_4hbag")
 theme_override_font_sizes/font_size = 32
 text = "Health: 	"
+label_settings = SubResource("LabelSettings_hd30a")
+
+[node name="playerName" type="Label" parent="."]
+offset_left = 19.0
+offset_top = -1.0
+offset_right = 294.0
+offset_bottom = 33.0
+text = "Player:"
+label_settings = SubResource("LabelSettings_stfxf")
