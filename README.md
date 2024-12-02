@@ -1,8 +1,11 @@
 # Game Link: https://madhushree-kurri.itch.io/redoxgame 
+This link is for the students to play the game. This link will be given by professor to the students through mail.
 
 ## Professsor Login link: https://redoxfrontend.onrender.com/
+This link is for the professor to manage the questions database and student database.
 
-## Student Registration link: https://redoxfrontend.onrender.com/student/ 
+## Student Registration link: https://redoxfrontend.onrender.com/student/
+This link is for the students to get registered in the game. Professor will send this link to students for registration.
 
 # Redox-Protect-The-World
 ## Description:
